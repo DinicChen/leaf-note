@@ -102,7 +102,6 @@ func parseCronField(field string, min int, max int) (cronField uint64, err error
 
 		var start, end int //用于存储起始值和结束值
 
-		//The form "*\/..." is equivalent to the form "first-last/...",that is, an increment over the largest possible range of the field
 		if startAndEnd[0] == "*" { //如果起始值为*
 			if len(startAndEnd) != 1 { //范围必须只有一个*,而不是first-last形式
 				err = fmt.Errorf("invalid range: %v", rangeAndIncr[0])
@@ -111,7 +110,6 @@ func parseCronField(field string, min int, max int) (cronField uint64, err error
 			start = min //起始值等于最小值
 			end = max   //结束值等于最大值
 		} else {
-			// start
 			start, err = strconv.Atoi(startAndEnd[0]) //转化为整数
 			if err != nil {
 				err = fmt.Errorf("invalid range: %v", rangeAndIncr[0])
